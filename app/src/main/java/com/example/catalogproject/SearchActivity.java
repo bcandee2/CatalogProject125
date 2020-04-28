@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 
 import com.example.catalogproject.Logic.Book;
@@ -44,7 +45,7 @@ public class SearchActivity extends AppCompatActivity {
                         "would be like if economics really mattered");
                 books.add(new Book(book2));
             } catch (JSONException ex) {
-                System.out.println("???");
+                Log.d("JSONException", "books test failed");
             }
             // End books test
             Bundle bundle = new Bundle();

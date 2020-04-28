@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 
 import com.example.catalogproject.Logic.Book;
@@ -22,17 +23,17 @@ public class MainActivity extends AppCompatActivity {
 
         Button searchButton = findViewById(R.id.searchButton);
         searchButton.setOnClickListener(v -> {
-            startActivity(new Intent(this, SearchActivity.class));
+            startActivityForResult(new Intent(this, SearchActivity.class), RequestCodes.REQUEST_SEARCH);
+            if (books != null) {
+                startActivity(new Intent(this, BookListActivity.class));
+            } else {
+                Log.d("bookSearch", "failed");
+            }
         });
 
         Button addBookButton = findViewById(R.id.addBookButton);
         addBookButton.setOnClickListener(v -> {
-            startActivityForResult(new Intent(this, BookAddActivity.class), RequestCodes.REQUEST_SEARCH);
-            if (books != null) {
-                startActivity(new Intent(this, BookListActivity.class));
-            } else {
-                System.out.println("here");
-            }
+            startActivity(new Intent(this, SearchActivity.class));
         });
     }
 
@@ -43,10 +44,13 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 Bundle bundle = data.getExtras();
                 books = (ArrayList<Book>) bundle.getSerializable("books");
+                for (Book b: books) {
+                    Log.d("testing", b.toString());
+                }
             }
         } else if (requestCode == RequestCodes.REQUEST_ADD) {
             if (resultCode ==  RESULT_OK) {
-                System.out.print("Great!");
+                Log.d("SearchTest", "Great!");
             }
         }
     }
