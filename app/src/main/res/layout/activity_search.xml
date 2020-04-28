@@ -16,7 +16,6 @@
         android:hint="@string/title_here"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
-        android:text="@string/title_here"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,7 +29,6 @@
         android:hint="@string/author_here"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
-        android:text="@string/author_here"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,7 +42,6 @@
         android:hint="@string/genre_here"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
-        android:text="@string/genre_here"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,8 +49,8 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="254dp"
-        android:layout_marginTop="151dp"
+        android:layout_marginStart="252dp"
+        android:layout_marginTop="160dp"
         android:text="@string/title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -62,8 +59,8 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="254dp"
-        android:layout_marginTop="207dp"
+        android:layout_marginStart="252dp"
+        android:layout_marginTop="216dp"
         android:text="@string/author"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -72,8 +69,8 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="254dp"
-        android:layout_marginTop="263dp"
+        android:layout_marginStart="252dp"
+        android:layout_marginTop="276dp"
         android:text="@string/genre"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

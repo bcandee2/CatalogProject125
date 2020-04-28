@@ -3,6 +3,7 @@
     <string name="example_title">Example Title</string>
     <string name="view_info">View Info</string>
     <string name="add_book">ADD BOOK</string>
+    <string name="remove_book">REMOVE BOOK</string>
     <string name="search">SEARCH</string>
     <string name="books2prisoners_catalog">Books2Prisoners Catalog</string>
     <string name="title_here">title here</string>
@@ -15,4 +16,5 @@
     <string name="description">description</string>
     <string name="add_book_to_catalog">ADD BOOK TO CATALOG</string>
     <string name="description_here">description here</string>
+    <string name="your_list">Your List</string>
 </resources>
