@@ -8,6 +8,8 @@ import android.util.Log;
 import android.widget.Button;
 
 import com.example.catalogproject.Logic.Book;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,6 +17,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity {
+    private RemoteMongoCollection mongoCollection = MainActivity.getMongoCollection();
+    private RemoteMongoClient mongoClient = MainActivity.getMongoClient();
     public ArrayList<Book> books;
 
     @Override
