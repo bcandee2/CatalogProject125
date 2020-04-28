@@ -4,7 +4,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/songName"
+        android:id="@+id/bookInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -13,7 +13,7 @@
         android:text="@string/example_title" />
 
     <Button
-        android:id="@+id/removeSong"
+        android:id="@+id/removeBook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/view_info" />

@@ -50,10 +50,9 @@ public class SearchActivity extends AppCompatActivity {
             // End books test
             Bundle bundle = new Bundle();
             bundle.putSerializable("books", books);
-            Intent result = new Intent();
-            result.putExtras(bundle);
-            setResult(RESULT_OK, result);
-            finish();
+            Intent listIntent = new Intent(this, BookListActivity.class);
+            listIntent.putExtras(bundle);
+            startActivity(listIntent);
         });
     }
 }
