@@ -17,4 +17,11 @@
     <string name="add_book_to_catalog">ADD BOOK TO CATALOG</string>
     <string name="description_here">description here</string>
     <string name="your_list">Your List</string>
+    <string-array name="genre_array">
+        <item>Biography</item>
+        <item>Fantasy</item>
+        <item>Horror</item>
+        <item>Mystery</item>
+        <item>Unknown</item>
+    </string-array>
 </resources>
