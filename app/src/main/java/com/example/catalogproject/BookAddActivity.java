@@ -37,14 +37,16 @@ public class BookAddActivity extends AppCompatActivity implements AdapterView.On
         EditText authorEditText = findViewById(R.id.authorEditText);
         EditText descEditText = findViewById(R.id.descriptionEditText);
         Button addBookButton = findViewById(R.id.addBookButton);
-        Spinner spinner = (Spinner) findViewById(R.id.genreSpinner);
+        Spinner genreSpinner = (Spinner) findViewById(R.id.genreSpinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.genre_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
+        genreSpinner.setAdapter(adapter);
+        genreSpinner.setOnItemClickListener((AdapterView.OnItemClickListener) this);
+
         addBookButton.setOnClickListener(v -> {
             String title = titleEditText.getText().toString();
             String author = authorEditText.getText().toString();
