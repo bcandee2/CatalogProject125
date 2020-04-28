@@ -12,24 +12,30 @@ public class Book {
         try {
             title = jsonBook.getString("title");
             author = jsonBook.getString("author");
-            switch (jsonBook.getString("genre").toLowerCase()) {
-                case "biography":
-                    genre = Genre.BIOGRAPHY;
-                    break;
-                case "fantasy":
-                    genre = Genre.FANTASY;
-                    break;
-                case "horror":
-                    genre = Genre.HORROR;
-                    break;
-                case "mystery":
-                    genre = Genre.MYSTERY;
-                    break;
-                default:
-                    genre = Genre.UNKNOWN;
-            }
+            genre = Genre.valueOf(jsonBook.getString("genre").toUpperCase());
+            description = jsonBook.getString("description");
         } catch (JSONException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public String getGenreAsString() {
+        return genre.toString();
     }
 }

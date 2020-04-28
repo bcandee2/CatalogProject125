@@ -5,4 +5,10 @@
     <string name="add_book">ADD BOOK</string>
     <string name="search">SEARCH</string>
     <string name="books2prisoners_catalog">Books2Prisoners Catalog</string>
+    <string name="title_here">title here</string>
+    <string name="author_here">author here</string>
+    <string name="genre_here">genre here</string>
+    <string name="title">Title</string>
+    <string name="author">Author</string>
+    <string name="genre">Genre</string>
 </resources>
