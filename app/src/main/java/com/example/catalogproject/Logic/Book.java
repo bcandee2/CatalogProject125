@@ -3,7 +3,9 @@ package com.example.catalogproject.Logic;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Book {
+import java.io.Serializable;
+
+public class Book implements Serializable {
     private String title;
     private String author;
     private Genre genre;
@@ -37,5 +39,9 @@ public class Book {
 
     public String getGenreAsString() {
         return genre.toString();
+    }
+
+    public String toString() {
+        return title + ": " + author;
     }
 }
