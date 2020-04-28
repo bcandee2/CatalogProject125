@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CatalogProject</string>
+    <string name="example_title">Example Title</string>
+    <string name="view_info">View Info</string>
+    <string name="add_book">ADD BOOK</string>
+    <string name="search">SEARCH</string>
+    <string name="books2prisoners_catalog">Books2Prisoners Catalog</string>
+</resources>
