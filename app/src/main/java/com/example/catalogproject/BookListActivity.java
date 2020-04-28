@@ -26,17 +26,17 @@ public class BookListActivity extends AppCompatActivity {
         books = (ArrayList<Book>) bundle.getSerializable("books");
 
         updateBooksUi();
-        }
+    }
 
     protected void updateBooksUi() {
         LinearLayout booksLayout = findViewById(R.id.listLayout);
         booksLayout.removeAllViews();
         for (Book b: books) {
-            View chunk = getLayoutInflater().inflate(R.layout.chunk_addedbook, booksLayout, true);
+            View chunk = getLayoutInflater().inflate(R.layout.chunk_addedbook, booksLayout, false);
             TextView text = chunk.findViewById(R.id.bookInfoText);
             text.setText(b.toString());
 
-            Button infoButton = findViewById(R.id.bookInfoButton);
+            Button infoButton = chunk.findViewById(R.id.bookInfoButton);
             infoButton.setOnClickListener(v -> {
                 Intent infoIntent = new Intent(this, BookInfoActivity.class);
                 Bundle extras = new Bundle();
@@ -45,11 +45,12 @@ public class BookListActivity extends AppCompatActivity {
                 startActivity(infoIntent);
             });
 
-            Button removeButton = findViewById(R.id.bookRemoveButton);
+            Button removeButton = chunk.findViewById(R.id.bookRemoveButton);
             removeButton.setOnClickListener(v -> {
                 books.remove(b);
                 updateBooksUi();
             });
+            booksLayout.addView(chunk);
         }
     }
 }
