@@ -14,10 +14,12 @@ public class Book implements Serializable {
         try {
             title = jsonBook.getString("title");
             author = jsonBook.getString("author");
-            genre = Genre.valueOf(jsonBook.getString("genre").toUpperCase());
             description = jsonBook.getString("description");
+            genre = Genre.valueOf(jsonBook.getString("genre").toUpperCase());
         } catch (JSONException ex) {
             ex.printStackTrace();
+        } catch (IllegalArgumentException il) {
+            genre = Genre.UNKNOWN;
         }
     }
 

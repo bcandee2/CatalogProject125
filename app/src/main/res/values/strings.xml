@@ -13,4 +13,6 @@
     <string name="genre">Genre</string>
     <string name="info">info</string>
     <string name="description">description</string>
+    <string name="add_book_to_catalog">ADD BOOK TO CATALOG</string>
+    <string name="description_here">description here</string>
 </resources>
