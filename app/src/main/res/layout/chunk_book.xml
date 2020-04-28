@@ -4,8 +4,8 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/bookInfo"
-        android:layout_width="0dp"
+        android:id="@+id/bookInfoText"
+        android:layout_width="235dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:ellipsize="end"
@@ -13,8 +13,10 @@
         android:text="@string/example_title" />
 
     <Button
-        android:id="@+id/removeBook"
-        android:layout_width="wrap_content"
+        android:id="@+id/bookInfoButton"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:text="@string/view_info" />
+
 </LinearLayout>

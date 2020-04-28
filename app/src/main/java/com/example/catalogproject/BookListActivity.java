@@ -2,7 +2,9 @@ package com.example.catalogproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -25,15 +27,22 @@ public class BookListActivity extends AppCompatActivity {
 
         LinearLayout booksLayout = findViewById(R.id.listLayout);
         for (Book b: books) {
-            View chunk = getLayoutInflater().inflate(R.layout.chunk_book, booksLayout, true);
-            TextView text = chunk.findViewById(R.id.bookInfo);
+            View chunk = getLayoutInflater().inflate(R.layout.chunk_book, booksLayout, false);
+            TextView text = chunk.findViewById(R.id.bookInfoText);
             text.setText(b.toString());
 
-            Button removeButton = findViewById(R.id.removeBook);
-            removeButton.setOnClickListener(v -> {
-                books.remove(b);
-                updateBooksUi();
+            Button infoButton = chunk.findViewById(R.id.bookInfoButton);
+            if (infoButton == null) {
+                Log.d("Bookie", "null button " + b.toString());
+            }
+            infoButton.setOnClickListener(v -> {
+                Intent infoIntent = new Intent(this, BookInfoActivity.class);
+                Bundle extras = new Bundle();
+                extras.putSerializable("book", b);
+                infoIntent.putExtras(extras);
+                startActivity(infoIntent);
             });
+            booksLayout.addView(chunk);
         }
     }
 
@@ -42,13 +51,16 @@ public class BookListActivity extends AppCompatActivity {
         booksLayout.removeAllViews();
         for (Book b: books) {
             View chunk = getLayoutInflater().inflate(R.layout.chunk_book, booksLayout, true);
-            TextView text = chunk.findViewById(R.id.bookInfo);
+            TextView text = chunk.findViewById(R.id.bookInfoText);
             text.setText(b.toString());
 
-            Button removeButton = findViewById(R.id.removeBook);
+            Button removeButton = findViewById(R.id.bookInfoButton);
             removeButton.setOnClickListener(v -> {
-                books.remove(b);
-                updateBooksUi();
+                Intent infoIntent = new Intent(this, BookInfoActivity.class);
+                Bundle extras = new Bundle();
+                extras.putSerializable("book", b);
+                infoIntent.putExtras(extras);
+                startActivity(infoIntent);
             });
         }
     }
