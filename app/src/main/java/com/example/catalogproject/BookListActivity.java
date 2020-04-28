@@ -25,16 +25,18 @@ public class BookListActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         books = (ArrayList<Book>) bundle.getSerializable("books");
 
+        updateBooksUi();
+        }
+
+    protected void updateBooksUi() {
         LinearLayout booksLayout = findViewById(R.id.listLayout);
+        booksLayout.removeAllViews();
         for (Book b: books) {
-            View chunk = getLayoutInflater().inflate(R.layout.chunk_book, booksLayout, false);
+            View chunk = getLayoutInflater().inflate(R.layout.chunk_addedbook, booksLayout, true);
             TextView text = chunk.findViewById(R.id.bookInfoText);
             text.setText(b.toString());
 
-            Button infoButton = chunk.findViewById(R.id.bookInfoButton);
-            if (infoButton == null) {
-                Log.d("Bookie", "null button " + b.toString());
-            }
+            Button infoButton = findViewById(R.id.bookInfoButton);
             infoButton.setOnClickListener(v -> {
                 Intent infoIntent = new Intent(this, BookInfoActivity.class);
                 Bundle extras = new Bundle();
@@ -42,25 +44,11 @@ public class BookListActivity extends AppCompatActivity {
                 infoIntent.putExtras(extras);
                 startActivity(infoIntent);
             });
-            booksLayout.addView(chunk);
-        }
-    }
 
-    protected void updateBooksUi() {
-        LinearLayout booksLayout = findViewById(R.id.listLayout);
-        booksLayout.removeAllViews();
-        for (Book b: books) {
-            View chunk = getLayoutInflater().inflate(R.layout.chunk_book, booksLayout, true);
-            TextView text = chunk.findViewById(R.id.bookInfoText);
-            text.setText(b.toString());
-
-            Button removeButton = findViewById(R.id.bookInfoButton);
+            Button removeButton = findViewById(R.id.bookRemoveButton);
             removeButton.setOnClickListener(v -> {
-                Intent infoIntent = new Intent(this, BookInfoActivity.class);
-                Bundle extras = new Bundle();
-                extras.putSerializable("book", b);
-                infoIntent.putExtras(extras);
-                startActivity(infoIntent);
+                books.remove(b);
+                updateBooksUi();
             });
         }
     }

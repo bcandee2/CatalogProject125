@@ -16,10 +16,10 @@ public class Book implements Serializable {
             author = jsonBook.getString("author");
             description = jsonBook.getString("description");
             genre = Genre.valueOf(jsonBook.getString("genre").toUpperCase());
-        } catch (JSONException ex) {
-            ex.printStackTrace();
         } catch (IllegalArgumentException il) {
             genre = Genre.UNKNOWN;
+        } catch (JSONException ex) {
+            ex.printStackTrace();
         }
     }
 
