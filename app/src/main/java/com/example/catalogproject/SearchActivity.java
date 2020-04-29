@@ -11,8 +11,14 @@ import com.example.catalogproject.Logic.Book;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.mongodb.lang.NonNull;
+import com.mongodb.stitch.android.core.Stitch;
+import com.mongodb.stitch.android.core.StitchAppClient;
+import com.mongodb.stitch.android.core.services.StitchServiceClient;
+import com.mongodb.stitch.android.services.http.HttpServiceClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
+import com.mongodb.stitch.core.services.http.HttpMethod;
+import com.mongodb.stitch.core.services.http.HttpRequest;
 
 import org.bson.Document;
 import org.json.JSONException;
@@ -36,6 +42,7 @@ public class SearchActivity extends AppCompatActivity {
             // Initialize books array
             books = new ArrayList<>();
             // First make search request to Kinvey
+            StitchAppClient client = Stitch.getDefaultAppClient();
 
             // Start books test
             try {
