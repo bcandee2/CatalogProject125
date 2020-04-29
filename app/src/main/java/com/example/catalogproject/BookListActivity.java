@@ -17,8 +17,8 @@ import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import java.util.ArrayList;
 
 public class BookListActivity extends AppCompatActivity {
-    private RemoteMongoCollection mongoCollection = MainActivity.getMongoCollection();
-    private RemoteMongoClient mongoClient = MainActivity.getMongoClient();
+    //private RemoteMongoCollection mongoCollection = MainActivity.getMongoCollection();
+    //private RemoteMongoClient mongoClient = MainActivity.getMongoClient();
     private ArrayList<Book> books;
 
     @Override

@@ -17,8 +17,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity {
-    private RemoteMongoCollection mongoCollection = MainActivity.getMongoCollection();
-    private RemoteMongoClient mongoClient = MainActivity.getMongoClient();
+    //private RemoteMongoCollection mongoCollection = MainActivity.getMongoCollection();
+    //private RemoteMongoClient mongoClient = MainActivity.getMongoClient();
     public ArrayList<Book> books;
 
     @Override

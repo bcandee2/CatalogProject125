@@ -26,8 +26,8 @@ import java.util.ArrayList;
 
 public class BookAddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private String genre;
-    private RemoteMongoCollection mongoCollection = MainActivity.getMongoCollection();
-    private RemoteMongoClient mongoClient = MainActivity.getMongoClient();
+    //private RemoteMongoCollection mongoCollection = MainActivity.getMongoCollection();
+    //private RemoteMongoClient mongoClient = MainActivity.getMongoClient();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +45,7 @@ public class BookAddActivity extends AppCompatActivity implements AdapterView.On
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         genreSpinner.setAdapter(adapter);
-        genreSpinner.setOnItemClickListener((AdapterView.OnItemClickListener) this);
+        genreSpinner.setOnItemSelectedListener(this);
 
         addBookButton.setOnClickListener(v -> {
             String title = titleEditText.getText().toString();
@@ -59,7 +59,7 @@ public class BookAddActivity extends AppCompatActivity implements AdapterView.On
                 JSONObject newJsonBook = new JSONObject();
                 newJsonBook.put("title", title);
                 newJsonBook.put("author", author);
-                newJsonBook.put("genre", genre);
+                newJsonBook.put("genre", selectedGenre);
                 newJsonBook.put("description", description);
                 Book newBook = new Book(newJsonBook);
                 ArrayList<Book> books = new ArrayList<>();

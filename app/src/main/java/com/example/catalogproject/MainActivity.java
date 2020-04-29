@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // MongoDB setup stuff
-        final StitchAppClient client = Stitch.initializeAppClient("catalogproject125-ylent");
+        /*final StitchAppClient client = Stitch.initializeAppClient("catalogproject125-ylent");
         client.getAuth().loginWithCredential(new AnonymousCredential())
                 .addOnCompleteListener(new OnCompleteListener<StitchUser>() {
             @Override
@@ -43,11 +43,12 @@ public class MainActivity extends AppCompatActivity {
                 mongoCollection = mongoClient.getDatabase("All").getCollection("Books");
             }
         });
+
         mongoCollection.sync().configure(
                 DefaultSyncConflictResolvers.remoteWins(),
                 null,
                 null
-        );
+        );*/
         // end MongoDB setup stuff
 
         Button searchButton = findViewById(R.id.searchButton);
