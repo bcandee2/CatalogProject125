@@ -34,21 +34,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // MongoDB setup stuff
-        /*final StitchAppClient client = Stitch.initializeAppClient("catalogproject125-ylent");
+        final StitchAppClient client = Stitch.initializeAppClient("catalogproject125-ylent");
+        Log.d("Bookie", "before assigning mongoClient");
         client.getAuth().loginWithCredential(new AnonymousCredential())
-                .addOnCompleteListener(new OnCompleteListener<StitchUser>() {
-            @Override
-            public void onComplete(@NonNull Task<StitchUser> task) {
-                mongoClient = client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
-                mongoCollection = mongoClient.getDatabase("All").getCollection("Books");
-            }
-        });
-
+                .addOnCompleteListener(task -> {
+                    Log.d("Bookie", "assigning mongoClient");
+                    mongoClient = client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
+                    mongoCollection = mongoClient.getDatabase("All").getCollection("Books");
+                });
+        if (mongoClient == null && mongoCollection == null) {
+            mongoClient = client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
+            mongoCollection = mongoClient.getDatabase("All").getCollection("Books");
+        }
+        Log.d("Bookie", "after assigning mongoClient");
         mongoCollection.sync().configure(
                 DefaultSyncConflictResolvers.remoteWins(),
                 null,
                 null
-        );*/
+        );
         // end MongoDB setup stuff
 
         Button searchButton = findViewById(R.id.searchButton);

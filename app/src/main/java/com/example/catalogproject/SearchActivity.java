@@ -8,13 +8,18 @@ import android.util.Log;
 import android.widget.Button;
 
 import com.example.catalogproject.Logic.Book;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.mongodb.lang.NonNull;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 
+import org.bson.Document;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
     //private RemoteMongoCollection mongoCollection = MainActivity.getMongoCollection();
@@ -52,6 +57,7 @@ public class SearchActivity extends AppCompatActivity {
                 Log.d("JSONException", "books test failed");
             }
             // End books test
+
             Bundle bundle = new Bundle();
             bundle.putSerializable("books", books);
             Intent listIntent = new Intent(this, BookListActivity.class);
