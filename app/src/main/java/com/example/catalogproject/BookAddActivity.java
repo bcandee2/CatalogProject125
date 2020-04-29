@@ -26,8 +26,8 @@ import java.util.ArrayList;
 
 public class BookAddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private String genre;
-    //private RemoteMongoCollection mongoCollection = MainActivity.getMongoCollection();
-    //private RemoteMongoClient mongoClient = MainActivity.getMongoClient();
+    private RemoteMongoCollection mongoCollection = MainActivity.getMongoCollection();
+    private RemoteMongoClient mongoClient = MainActivity.getMongoClient();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
