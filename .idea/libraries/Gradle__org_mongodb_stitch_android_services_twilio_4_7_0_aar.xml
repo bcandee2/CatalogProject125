@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: org.mongodb:stitch-android-services-twilio:4.7.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1a53ad3b185a6e3bfa4eb834d95aea16/jetified-stitch-android-services-twilio-4.7.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1a53ad3b185a6e3bfa4eb834d95aea16/jetified-stitch-android-services-twilio-4.7.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/21222ecebda7a5c7f3210aa43c2e8c1a/jetified-stitch-android-services-twilio-4.7.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/21222ecebda7a5c7f3210aa43c2e8c1a/jetified-stitch-android-services-twilio-4.7.0/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/stitch-android-services-twilio/4.7.0/b6e0a172befccf7de5aacc321c49df8bae835f5/stitch-android-services-twilio-4.7.0-javadoc.jar!/" />

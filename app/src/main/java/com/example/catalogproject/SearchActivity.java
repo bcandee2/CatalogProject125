@@ -7,7 +7,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.catalogproject.Logic.Book;
@@ -32,19 +37,41 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private RemoteMongoCollection mongoCollection = MainActivity.getMongoCollection();
     private RemoteMongoClient mongoClient = MainActivity.getMongoClient();
     public ArrayList<Book> books;
     public ArrayList<Document> results;
+    String genre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        Spinner genreSpinner = (Spinner) findViewById(R.id.genreSpinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.genre_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        genreSpinner.setAdapter(adapter);
+        genreSpinner.setOnItemSelectedListener(this);
+
         Button searchButton = findViewById(R.id.searchButton);
         searchButton.setOnClickListener(v -> {
+            EditText titleEditText = findViewById(R.id.titleEditText3);
+            EditText authorEditText = findViewById(R.id.authorEditText3);
+            EditText descEditText = findViewById(R.id.descriptionEditText3);
+
+            //Get our user inputed search
+            String title = titleEditText.getText().toString();
+            String author = authorEditText.getText().toString();
+            String selectedGenre = genre;
+            String description = descEditText.getText().toString();
+
+
             // Initialize books array
             books = new ArrayList<>();
 
@@ -79,5 +106,15 @@ public class SearchActivity extends AppCompatActivity {
             listIntent.putExtras(bundle);
             startActivity(listIntent);
         });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        genre = parent.getItemAtPosition(position).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        //Do nothing
     }
 }

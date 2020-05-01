@@ -6,82 +6,88 @@
     android:layout_height="match_parent"
     tools:context=".SearchActivity">
 
-    <EditText
-        android:id="@+id/titleEditText"
+    <Button
+        android:id="@+id/searchButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="151dp"
-        android:ems="10"
-        android:hint="@string/title_here"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
+        android:layout_height="0dp"
+        android:layout_marginStart="162dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="162dp"
+        android:text="@string/search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/descriptionEditText3" />
 
     <EditText
-        android:id="@+id/authorEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/descriptionEditText3"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="207dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="@string/description_here"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine|text|textCapSentences"
+        android:minLines="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/authorEditText3" />
+
+    <EditText
+        android:id="@+id/authorEditText3"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="17dp"
         android:ems="10"
         android:hint="@string/author_here"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/titleEditText3" />
+
+    <Spinner
+        android:id="@+id/genreSpinner"
+        android:layout_width="142dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="19dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/titleEditText3"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
-        android:id="@+id/genreEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/titleEditText3"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="263dp"
+        android:layout_marginTop="33dp"
         android:ems="10"
-        android:hint="@string/genre_here"
+        android:hint="@string/title_here"
         android:importantForAutofill="no"
-        android:inputType="textPersonName"
+        android:inputType="textCapWords"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="252dp"
-        android:layout_marginTop="160dp"
-        android:text="@string/title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="252dp"
-        android:layout_marginTop="216dp"
-        android:text="@string/author"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginEnd="9dp"
+        android:backgroundTint="#E91ED5"
+        android:text="@string/search_catalog"
+        android:textAlignment="center"
+        android:textIsSelectable="false"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="252dp"
-        android:layout_marginTop="276dp"
-        android:text="@string/genre"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/searchButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="161dp"
-        android:layout_marginTop="33dp"
-        android:text="@string/search"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/genreEditText" />
+        tools:layout_editor_absoluteY="78dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
