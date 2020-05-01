@@ -12,6 +12,7 @@ public class Book implements Serializable {
     private String author;
     private Genre genre;
     private String description;
+    private Document document;
     public Book(JSONObject jsonBook)  {
         try {
             title = jsonBook.getString("title");
@@ -23,6 +24,13 @@ public class Book implements Serializable {
         } catch (JSONException ex) {
             ex.printStackTrace();
         }
+    }
+    public Book(Document docBook) {
+        title = docBook.getString("title");
+        author = docBook.getString("author");
+        description = docBook.getString("description");
+        genre = Genre.valueOf(docBook.getString("genre"));
+        document = docBook;
     }
 
     public String getTitle() {
@@ -50,12 +58,16 @@ public class Book implements Serializable {
     }
 
     public Document getDocument() {
-        Document doc = new Document();
-        doc.append("title", title);
-        doc.append("author", author);
-        doc.append("genre", getGenreAsString().toLowerCase());
-        doc.append("description", description);
-        return doc;
+        if (document != null) {
+            return document;
+        } else {
+            document = new Document();
+            document.append("title", title);
+            document.append("author", author);
+            document.append("genre", getGenreAsString().toLowerCase());
+            document.append("description", description);
+            return document;
+        }
     }
 
     public static ArrayList<Book> sortBy(ArrayList<Book> books, String field) {

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.JsonReader;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
@@ -28,15 +29,19 @@ import com.mongodb.stitch.core.services.http.HttpRequest;
 import org.bson.Document;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class SearchActivity extends AppCompatActivity {
     private RemoteMongoCollection mongoCollection = MainActivity.getMongoCollection();
     private RemoteMongoClient mongoClient = MainActivity.getMongoClient();
     public ArrayList<Book> books;
     public ArrayList<Document> results;
+    private JSONParser parser = new JSONParser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +75,10 @@ public class SearchActivity extends AppCompatActivity {
             // End books test
 
             Document query = new Document("title", new Document("$exists", true));
-            SyncFindIterable results = mongoCollection.sync().find(query);
-            results.forEach(item -> Log.d("Bookie", item.toString()));
+            SyncFindIterable<Document> results = mongoCollection.sync().find(query);
+            results.forEach(item -> {
+                Log.d("Bookie", item.toJson());
+            });
 
             Bundle bundle = new Bundle();
             bundle.putSerializable("books", books);

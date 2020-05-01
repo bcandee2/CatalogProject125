@@ -58,7 +58,6 @@ public class BookListActivity extends AppCompatActivity implements AdapterView.O
         LinearLayout booksLayout = findViewById(R.id.listLayout);
         booksLayout.removeAllViews();
         for (Book b: sortedBooks) {
-            Log.d("Bookie", b.toString());
             View chunk = getLayoutInflater().inflate(R.layout.chunk_addedbook, booksLayout, false);
             TextView text = chunk.findViewById(R.id.bookInfoText);
             text.setText(b.toString());

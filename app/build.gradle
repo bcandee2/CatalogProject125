@@ -42,4 +42,7 @@ dependencies {
     implementation 'org.mongodb:stitch-android-services-http:4.+'
     implementation 'org.mongodb:stitch-android-services-mongodb-remote:4.+'
     implementation 'org.mongodb:stitch-android-services-twilio:4.+'
+    implementation ('com.googlecode.json-simple:json-simple:1.1.1') {
+        exclude group: 'org.hamcrest', module:'hamcrest-core'
+    }
 }
