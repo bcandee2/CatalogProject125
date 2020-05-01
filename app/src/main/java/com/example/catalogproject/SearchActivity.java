@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.catalogproject.Logic.Book;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.mongodb.Block;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.core.services.StitchServiceClient;
@@ -20,6 +21,7 @@ import com.mongodb.stitch.android.services.http.HttpServiceClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
+import com.mongodb.stitch.android.services.mongodb.remote.SyncFindIterable;
 import com.mongodb.stitch.core.services.http.HttpMethod;
 import com.mongodb.stitch.core.services.http.HttpRequest;
 
@@ -46,7 +48,6 @@ public class SearchActivity extends AppCompatActivity {
             // Initialize books array
             books = new ArrayList<>();
             // First make search request to Mongo
-            StitchAppClient client = Stitch.getDefaultAppClient();
 
             // Start books test
             try {
@@ -68,16 +69,25 @@ public class SearchActivity extends AppCompatActivity {
                 Log.d("JSONException", "books test failed");
             }
             // End books test
-
-            RemoteFindIterable findResults = mongoCollection.find(new Document()).sort(new Document().append("name", 1));
-            Task<List<Document>> bookTask = findResults.into(results);
-            bookTask.addOnCompleteListener(new OnCompleteListener<List<Document>>() {
+            SyncFindIterable findResults = mongoCollection.sync().find();
+            /*Task<List<Document>> loadTask = findResults.into(results);
+            loadTask.addOnCompleteListener(new OnCompleteListener<List<Document>>() {
                 @Override
                 public void onComplete(@NonNull Task<List<Document>> task) {
                     Context context = getApplicationContext();
-                    Toast.makeText(context, "Results are in", Toast.LENGTH_SHORT);
+                    Toast.makeText(context, "Results are in", Toast.LENGTH_LONG).show();
                 }
+            });*/
+            //Log.d("Search", mongoCollection.count().getResult().toString());
+
+            List<Book> dbBooks = new ArrayList<>();
+
+            findResults.forEach(item -> {
+                Book currentBook = (Book) item;
+                dbBooks.add(currentBook);
+                Log.d("Search", "An item");
             });
+            Log.d("Search", dbBooks.toString());
 
             Bundle bundle = new Bundle();
             bundle.putSerializable("books", books);

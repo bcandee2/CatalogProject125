@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.catalogproject.Logic.Book;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -72,6 +74,8 @@ public class BookAddActivity extends AppCompatActivity implements AdapterView.On
                     public void onComplete(@NonNull Task<RemoteInsertOneResult> task) {
                         if (task.isSuccessful()) {
                             Log.d("Bookie", "We did it boys!");
+                            Context context = getApplicationContext();
+                            Toast.makeText(context, "Book sumbitted!", Toast.LENGTH_LONG).show();
                         } else {
                             Log.e("Bookie", "shit");
                         }
