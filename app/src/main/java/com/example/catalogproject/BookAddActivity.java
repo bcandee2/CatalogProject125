@@ -1,5 +1,6 @@
 package com.example.catalogproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -15,8 +16,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.catalogproject.Logic.Book;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
+import com.mongodb.stitch.core.services.mongodb.remote.RemoteInsertOneResult;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -62,13 +66,24 @@ public class BookAddActivity extends AppCompatActivity implements AdapterView.On
                 newJsonBook.put("genre", selectedGenre);
                 newJsonBook.put("description", description);
                 Book newBook = new Book(newJsonBook);
-                ArrayList<Book> books = new ArrayList<>();
-                books.add(newBook);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("books", books);
-                Intent listIntent = new Intent(this, BookListActivity.class);
-                listIntent.putExtras(bundle);
-                startActivity(listIntent);
+                final Task<RemoteInsertOneResult> insertTask = mongoCollection.sync().insertOne(newBook.getDocument());
+                insertTask.addOnCompleteListener(new OnCompleteListener<RemoteInsertOneResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<RemoteInsertOneResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("Bookie", "We did it boys!");
+                        } else {
+                            Log.e("Bookie", "shit");
+                        }
+                    }
+                });
+//                ArrayList<Book> books = new ArrayList<>();
+//                books.add(newBook);
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("books", books);
+//                Intent listIntent = new Intent(this, BookListActivity.class);
+//                listIntent.putExtras(bundle);
+//                startActivity(listIntent);
             } catch (JSONException ex) {
                 Log.d("Bookie", "add book test failed");
             }

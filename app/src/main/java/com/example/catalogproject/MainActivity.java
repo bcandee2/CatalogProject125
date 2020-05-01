@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +21,6 @@ import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential;
 import com.mongodb.stitch.core.services.mongodb.remote.sync.DefaultSyncConflictResolvers;
-import com.mongodb.stitch.android.services.http.*;
 
 import java.util.ArrayList;
 
@@ -29,24 +29,27 @@ public class MainActivity extends AppCompatActivity {
     private static RemoteMongoClient mongoClient;
     private ArrayList<Book> books;
 
+    @SuppressLint("CheckResult")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         // MongoDB setup stuff
-        final StitchAppClient client = Stitch.initializeAppClient("catalogproject125-ylent");
-        client.getAuth().loginWithCredential(new AnonymousCredential())
-                .addOnCompleteListener(task -> {
-                    Log.d("Bookie", "assigning mongoClient");
-                    mongoClient = client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
-                    mongoCollection = mongoClient.getDatabase("All").getCollection("Books");
-                    mongoCollection.sync().configure(
-                            DefaultSyncConflictResolvers.remoteWins(),
-                            null,
-                            null
-                    );
-                });
+        if (mongoClient == null) {
+            final StitchAppClient client = Stitch.initializeAppClient("catalogproject125-ylent");
+            client.getAuth().loginWithCredential(new AnonymousCredential())
+                    .addOnCompleteListener(task -> {
+                        Log.d("Bookie", "assigning mongoClient");
+                        mongoClient = client.getServiceClient(RemoteMongoClient.factory, "mongodb-atlas");
+                        mongoCollection = mongoClient.getDatabase("All").getCollection("Books");
+                        mongoCollection.sync().configure(
+                                DefaultSyncConflictResolvers.remoteWins(),
+                                null,
+                                null
+                        );
+                    });
+        }
         // end MongoDB setup stuff
 
         Button searchButton = findViewById(R.id.searchButton);

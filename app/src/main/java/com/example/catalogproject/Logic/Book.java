@@ -1,5 +1,6 @@
 package com.example.catalogproject.Logic;
 
+import org.bson.Document;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,5 +46,14 @@ public class Book implements Serializable {
 
     public String toString() {
         return title + ": " + author;
+    }
+
+    public Document getDocument() {
+        Document doc = new Document();
+        doc.append("title", title);
+        doc.append("author", author);
+        doc.append("genre", getGenreAsString().toLowerCase());
+        doc.append("description", description);
+        return doc;
     }
 }

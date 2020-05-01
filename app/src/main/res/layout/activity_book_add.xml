@@ -13,30 +13,25 @@
         android:layout_marginStart="9dp"
         android:layout_marginTop="78dp"
         android:layout_marginEnd="9dp"
-        android:layout_marginBottom="16dp"
         android:backgroundTint="#E91ED5"
         android:text="@string/add_book_to_catalog"
         android:textAlignment="center"
         android:textIsSelectable="false"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/titleEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/titleEditText"
-        android:layout_width="228dp"
-        android:layout_height="37dp"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="33dp"
         android:ems="10"
         android:hint="@string/title_here"
         android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/authorEditText"
-        app:layout_constraintEnd_toStartOf="@+id/genreSpinner"
+        android:inputType="textCapWords"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -45,54 +40,50 @@
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="21dp"
         android:layout_marginEnd="17dp"
         android:ems="10"
         android:hint="@string/author_here"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleEditText" />
 
     <EditText
         android:id="@+id/descriptionEditText"
         android:layout_width="0dp"
-        android:layout_height="54dp"
+        android:layout_height="169dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="17dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/description_here"
         android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/addBookButton"
+        android:inputType="textMultiLine|text|textCapSentences"
+        android:minLines="3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/authorEditText"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/authorEditText" />
 
     <Button
         android:id="@+id/addBookButton"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="159dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="160dp"
+        android:layout_marginTop="39dp"
         android:text="@string/add_book"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/descriptionEditText" />
 
     <Spinner
         android:id="@+id/genreSpinner"
-        android:layout_width="143dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="142dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="19dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/titleEditText"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
