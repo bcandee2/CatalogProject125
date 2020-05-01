@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.catalogproject.Logic.Book;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.mongodb.Block;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.core.services.StitchServiceClient;
