@@ -31,4 +31,5 @@
         <item>Author</item>
         <item>Genre</item>
     </string-array>
+    <string name="search_catalog">SEARCH CATALOG</string>
 </resources>
