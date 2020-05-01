@@ -5,39 +5,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/singleBookLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:layout_weight="1"
-        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/bookInfoText"
-            android:layout_width="253dp"
+            android:layout_width="185dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@string/example_title" />
+            android:text="@string/example_title"
+            android:textAlignment="center"
+            app:layout_constraintBaseline_toBaselineOf="@+id/bookInfoButton"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/bookInfoButton"
-            android:layout_width="105dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/view_info" />
+            android:text="@string/info"
+            app:layout_constraintStart_toEndOf="@+id/bookInfoText"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/bookRemoveButton"
-            android:layout_width="111dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/remove_book" />
+            android:text="@string/remove"
+            app:layout_constraintStart_toEndOf="@+id/bookInfoButton"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

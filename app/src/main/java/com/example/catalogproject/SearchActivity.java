@@ -45,9 +45,7 @@ public class SearchActivity extends AppCompatActivity {
         searchButton.setOnClickListener(v -> {
             // Initialize books array
             books = new ArrayList<>();
-            // First make search request to Mongo
-            StitchAppClient client = Stitch.getDefaultAppClient();
-
+            
             // Start books test
             try {
                 JSONObject book1 = new JSONObject();

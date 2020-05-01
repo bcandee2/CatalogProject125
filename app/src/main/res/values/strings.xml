@@ -18,6 +18,7 @@
     <string name="description_here">description here</string>
     <string name="your_list">Your List</string>
     <string name="sort_by">Sort By</string>
+    <string name="remove">remove</string>
     <string-array name="genre_array">
         <item>Biography</item>
         <item>Fantasy</item>
