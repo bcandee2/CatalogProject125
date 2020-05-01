@@ -36,5 +36,10 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.android.material:material:1.1.0'
-    implementation 'org.mongodb:stitch-android-sdk:4.1.0'
+    implementation 'org.mongodb:stitch-android-core:4.+'
+    implementation 'org.mongodb:stitch-android-services-aws:4.+'
+    implementation 'org.mongodb:stitch-android-services-fcm:4.+'
+    implementation 'org.mongodb:stitch-android-services-http:4.+'
+    implementation 'org.mongodb:stitch-android-services-mongodb-remote:4.+'
+    implementation 'org.mongodb:stitch-android-services-twilio:4.+'
 }

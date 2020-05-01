@@ -20,6 +20,7 @@ import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import com.mongodb.stitch.core.auth.providers.anonymous.AnonymousCredential;
 import com.mongodb.stitch.core.services.mongodb.remote.sync.DefaultSyncConflictResolvers;
+import com.mongodb.stitch.android.services.http.*;
 
 import java.util.ArrayList;
 
