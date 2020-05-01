@@ -56,9 +56,7 @@ public class BookAddActivity extends AppCompatActivity implements AdapterView.On
             String author = authorEditText.getText().toString();
             String selectedGenre = genre;
             String description = descEditText.getText().toString();
-            // Would normally send add request to MongoDB here
-
-            // Instead, start new book test
+            // Send add request to MongoDB here
             try {
                 JSONObject newJsonBook = new JSONObject();
                 newJsonBook.put("title", title);
@@ -77,17 +75,9 @@ public class BookAddActivity extends AppCompatActivity implements AdapterView.On
                         }
                     }
                 });
-//                ArrayList<Book> books = new ArrayList<>();
-//                books.add(newBook);
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("books", books);
-//                Intent listIntent = new Intent(this, BookListActivity.class);
-//                listIntent.putExtras(bundle);
-//                startActivity(listIntent);
             } catch (JSONException ex) {
                 Log.d("Bookie", "add book test failed");
             }
-            // End new book test
         });
     }
 
