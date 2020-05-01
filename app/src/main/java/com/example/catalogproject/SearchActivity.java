@@ -1,20 +1,23 @@
 package com.example.catalogproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.catalogproject.Logic.Book;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.mongodb.lang.NonNull;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.core.services.StitchServiceClient;
 import com.mongodb.stitch.android.services.http.HttpServiceClient;
+import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import com.mongodb.stitch.core.services.http.HttpMethod;
@@ -31,6 +34,7 @@ public class SearchActivity extends AppCompatActivity {
     private RemoteMongoCollection mongoCollection = MainActivity.getMongoCollection();
     private RemoteMongoClient mongoClient = MainActivity.getMongoClient();
     public ArrayList<Book> books;
+    public ArrayList<Document> results;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +45,7 @@ public class SearchActivity extends AppCompatActivity {
         searchButton.setOnClickListener(v -> {
             // Initialize books array
             books = new ArrayList<>();
-            // First make search request to Kinvey
+            // First make search request to Mongo
             StitchAppClient client = Stitch.getDefaultAppClient();
 
             // Start books test
@@ -64,6 +68,16 @@ public class SearchActivity extends AppCompatActivity {
                 Log.d("JSONException", "books test failed");
             }
             // End books test
+
+            RemoteFindIterable findResults = mongoCollection.find(new Document()).sort(new Document().append("name", 1));
+            Task<List<Document>> bookTask = findResults.into(results);
+            bookTask.addOnCompleteListener(new OnCompleteListener<List<Document>>() {
+                @Override
+                public void onComplete(@NonNull Task<List<Document>> task) {
+                    Context context = getApplicationContext();
+                    Toast.makeText(context, "Results are in", Toast.LENGTH_SHORT);
+                }
+            });
 
             Bundle bundle = new Bundle();
             bundle.putSerializable("books", books);
