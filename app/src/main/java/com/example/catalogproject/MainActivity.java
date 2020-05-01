@@ -63,6 +63,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
     public static RemoteMongoCollection getMongoCollection() {
         return mongoCollection;
     }
