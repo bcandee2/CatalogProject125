@@ -37,4 +37,5 @@
     <string name="keywords">keywords</string>
     <string name="remove_book_nfrom_database">Remove Book\nFrom Database</string>
     <string name="cancel">Cancel</string>
+    <string name="todo">TODO</string>
 </resources>
