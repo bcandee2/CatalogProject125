@@ -19,13 +19,14 @@
     <string name="your_list">Your List</string>
     <string name="sort_by">Sort By</string>
     <string name="remove">remove</string>
+    <string name="confirmation">Are you sure you want\n to remove this book?\nThis is forever...</string>
     <string-array name="genre_array">
+        <item>None</item>
         <item>Biography</item>
         <item>Fantasy</item>
         <item>Horror</item>
         <item>Mystery</item>
         <item>Unknown</item>
-        <item>None</item>
     </string-array>
     <string-array name="sort_array">
         <item>Title</item>
@@ -34,4 +35,6 @@
     </string-array>
     <string name="search_catalog">SEARCH CATALOG</string>
     <string name="keywords">keywords</string>
+    <string name="remove_book_nfrom_database">Remove Book\nFrom Database</string>
+    <string name="cancel">Cancel</string>
 </resources>

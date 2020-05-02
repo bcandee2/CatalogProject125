@@ -54,10 +54,10 @@ public class BookListActivity extends AppCompatActivity implements AdapterView.O
 
     }
 
-    protected void updateBooksUi() {
+    public void updateBooksUi() {
         LinearLayout booksLayout = findViewById(R.id.listLayout);
         booksLayout.removeAllViews();
-        for (Book b: sortedBooks) {
+        for (Book b : sortedBooks) {
             View chunk = getLayoutInflater().inflate(R.layout.chunk_addedbook, booksLayout, false);
             TextView text = chunk.findViewById(R.id.bookInfoText);
             text.setText(b.toString());
@@ -69,6 +69,7 @@ public class BookListActivity extends AppCompatActivity implements AdapterView.O
                 extras.putSerializable("book", b);
                 infoIntent.putExtras(extras);
                 startActivity(infoIntent);
+                finish();
             });
 
             Button removeButton = chunk.findViewById(R.id.bookRemoveButton);
@@ -89,4 +90,5 @@ public class BookListActivity extends AppCompatActivity implements AdapterView.O
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         sortField = "title";
-    }}
+    }
+}

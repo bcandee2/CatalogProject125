@@ -67,16 +67,13 @@ public class BookAddActivity extends AppCompatActivity implements AdapterView.On
                 newJsonBook.put("description", description);
                 Book newBook = new Book(newJsonBook);
                 final Task<RemoteInsertOneResult> insertTask = mongoCollection.sync().insertOne(newBook.getDocument());
-                insertTask.addOnCompleteListener(new OnCompleteListener<RemoteInsertOneResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<RemoteInsertOneResult> task) {
-                        if (task.isSuccessful()) {
-                            Log.d("Bookie", "We did it boys!");
-                            Context context = getApplicationContext();
-                            Toast.makeText(context, "Book sumbitted!", Toast.LENGTH_LONG).show();
-                        } else {
-                            Log.e("Bookie", "shit");
-                        }
+                insertTask.addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.d("Bookie", "We did it boys!");
+                        Context context = getApplicationContext();
+                        Toast.makeText(context, "Book sumbitted!", Toast.LENGTH_LONG).show();
+                    } else {
+                        Log.e("Bookie", "shit");
                     }
                 });
             } catch (JSONException ex) {

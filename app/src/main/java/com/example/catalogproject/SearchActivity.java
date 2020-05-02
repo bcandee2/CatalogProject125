@@ -46,8 +46,8 @@ import java.util.function.Consumer;
 public class SearchActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private RemoteMongoCollection mongoCollection = MainActivity.getMongoCollection();
     private RemoteMongoClient mongoClient = MainActivity.getMongoClient();
-    public ArrayList<Book> books = new ArrayList<>();
-    public ArrayList<Document> results;
+    private static ArrayList<Book> books = new ArrayList<>();
+    public static ArrayList<Document> results;
     String genre;
     private JSONParser parser = new JSONParser();
 
@@ -119,9 +119,8 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
                 query.put("$and", search);
                 Log.d("Bookie", query.toJson());
             } else {
-                // Else find all DB documents
-                query.put("title", new BasicDBObject("$exists", true));
-                Log.e("Bookie", "uh oh");
+                // Else find all DB documents);
+                Log.d("Bookie", "searching all");
             }
 
             // clear books list
@@ -134,6 +133,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
             finished.addOnCompleteListener(task -> {
                 books.clear();
                 for (Document item : searchResult) {
+                    String bookId = item.getObjectId("_id").toHexString();
                     String bookTitle = item.getString("title");
                     String bookAuthor = item.getString("author");
                     String bookGenre = item.getString("genre");
@@ -141,12 +141,11 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
                     try {
                             JSONObject searchedBook = new JSONObject()
                                     .put("title", bookTitle)
-                                .put("author", bookAuthor)
-                                .put("genre", bookGenre)
-                                .put("description", bookDesc);
+                                    .put("author", bookAuthor)
+                                    .put("genre", bookGenre)
+                                    .put("description", bookDesc)
+                                    .put("id", bookId);
                         books.add(new Book(searchedBook));
-                        Log.d("Bookie", "Book added");
-                        Log.d("Bookie", books.toString());
                     } catch (Exception e) {
                         Log.e("Bookie", "Couldn't parse document");
                     }

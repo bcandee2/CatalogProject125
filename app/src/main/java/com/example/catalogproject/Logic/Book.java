@@ -13,12 +13,14 @@ public class Book implements Serializable {
     private Genre genre;
     private String description;
     private Document document;
+    private String id;
     public Book(JSONObject jsonBook)  {
         try {
             title = jsonBook.getString("title");
             author = jsonBook.getString("author");
             description = jsonBook.getString("description");
             genre = Genre.valueOf(jsonBook.getString("genre").toUpperCase());
+            id = jsonBook.getString("id");
         } catch (IllegalArgumentException il) {
             genre = Genre.UNKNOWN;
         } catch (JSONException ex) {
@@ -43,6 +45,10 @@ public class Book implements Serializable {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public Genre getGenre() {
