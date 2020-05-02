@@ -1,12 +1,7 @@
 package com.example.catalogproject;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.JsonReader;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,43 +9,47 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.catalogproject.Logic.Book;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.mongodb.BasicDBObject;
-import com.mongodb.Block;
 import com.mongodb.DBObject;
-import com.mongodb.stitch.android.core.Stitch;
-import com.mongodb.stitch.android.core.StitchAppClient;
-import com.mongodb.stitch.android.core.services.StitchServiceClient;
-import com.mongodb.stitch.android.services.http.HttpServiceClient;
-import com.mongodb.stitch.android.services.mongodb.remote.RemoteFindIterable;
-import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import com.mongodb.stitch.android.services.mongodb.remote.SyncFindIterable;
-import com.mongodb.stitch.core.services.http.HttpMethod;
-import com.mongodb.stitch.core.services.http.HttpRequest;
 
 import org.bson.Document;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
+/**
+ * Activity for searching for a given book.
+ * Searches for documents with all fields matching (case-insensitive)
+ * except for description, which matches any keywords listed.
+ */
 public class SearchActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    /**
+     * The RemoteMongoCollection created in MainActivity for use making search requests.
+     */
     private RemoteMongoCollection mongoCollection = MainActivity.getMongoCollection();
-    private RemoteMongoClient mongoClient = MainActivity.getMongoClient();
-    private static ArrayList<Book> books = new ArrayList<>();
-    public static ArrayList<Document> results;
-    String genre;
-    private JSONParser parser = new JSONParser();
 
+    /**
+     * The list of books to load search results into and pass to BookListActivity.
+     */
+    private static ArrayList<Book> books = new ArrayList<>();
+
+    /**
+     * The currently selected genre (or "None").
+     */
+    String genre;
+
+    /**
+     * Called by system when activity is being initialized.
+     * @param savedInstanceState (unused) the information from the previous instance of SearchActivity.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +74,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         Button searchButton = findViewById(R.id.searchButton);
         searchButton.setOnClickListener(v -> {
 
-            //Get our user inputed search
+            //Get our user inputted search
             String title = titleEditText.getText().toString();
             String author = authorEditText.getText().toString();
             String description = descEditText.getText().toString();
@@ -87,13 +86,13 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
             boolean empty = true;
             if (title.length() > 0) {
                 obj = new BasicDBObject("$regex", title);
-                obj.append("$options", "i");
+                obj.append("$options", "i"); // Case insensitive
                 search.add(new BasicDBObject("title", obj));
                 empty = false;
             }
             if (author.length() > 0) {
                 obj = new BasicDBObject("$regex", author);
-                obj.append("$options", "i");
+                obj.append("$options", "i"); // Case insensitive
                 search.add(new BasicDBObject("author", obj));
                 empty = false;
             }
@@ -101,15 +100,15 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
                 List<DBObject> keywords = new ArrayList<>();
                 for (String keyword: description.split("[ ]+")) {
                     obj = new BasicDBObject("$regex", keyword);
-                    obj.append("$options", "i");
+                    obj.append("$options", "i"); // Case insensitive
                     keywords.add(new BasicDBObject("description", obj));
                     empty = false;
                 }
-                search.add(new BasicDBObject("$or", keywords));
+                search.add(new BasicDBObject("$or", keywords)); // Match any keyword
             }
             if (!genre.equals("None")) {
                 obj = new BasicDBObject("$regex", genre);
-                obj.append("$options", "i");
+                obj.append("$options", "i"); // Case insensitive
                 search.add(new BasicDBObject("genre", obj));
                 empty = false;
             }
@@ -160,11 +159,22 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         });
     }
 
+    /**
+     * What to do with the selected spinner item.
+     * @param parent the parent activity
+     * @param view the parent view
+     * @param position the on-screen position of the item
+     * @param id the id of the item selected
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         genre = parent.getItemAtPosition(position).toString();
     }
 
+    /**
+     * (Unused) What to do when no spinner item is selected.
+     * @param parent the parent activity
+     */
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         //Do nothing

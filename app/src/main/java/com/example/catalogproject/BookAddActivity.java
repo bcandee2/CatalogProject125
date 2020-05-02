@@ -1,11 +1,6 @@
 package com.example.catalogproject;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,26 +9,37 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.catalogproject.Logic.Book;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
 import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import com.mongodb.stitch.core.services.mongodb.remote.RemoteInsertOneResult;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.util.ArrayList;
-
+/**
+ * Activity for adding a new book to the collection.
+ * You must add a book before search will return any results.
+ */
 public class BookAddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    /**
+     * The currently selected genre.
+     */
     private String genre;
+
+    /**
+     * The RemoteMongoCollection created in MainActivity for use making add requests.
+     */
     private RemoteMongoCollection mongoCollection = MainActivity.getMongoCollection();
-    private RemoteMongoClient mongoClient = MainActivity.getMongoClient();
+
+    /**
+     * Called by system when activity is being initialized.
+     * @param savedInstanceState (unused) the information from the previous instance of BookAddActivity.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,11 +91,22 @@ public class BookAddActivity extends AppCompatActivity implements AdapterView.On
         });
     }
 
+    /**
+     * What to do with the selected spinner item.
+     * @param parent the parent activity
+     * @param view the parent view
+     * @param position the on-screen position of the item
+     * @param id the id of the item selected
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         genre = parent.getItemAtPosition(position).toString();
     }
 
+    /**
+     * (Unused) What to do when no spinner item is selected.
+     * @param parent the parent activity
+     */
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         //Do nothing

@@ -1,10 +1,7 @@
 package com.example.catalogproject;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,19 +10,35 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.catalogproject.Logic.Book;
-import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoClient;
-import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 
 import java.util.ArrayList;
 
+/**
+ * Activity to list the books passed to it by the parent SearchActivity.
+ */
 public class BookListActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    private final RemoteMongoCollection mongoCollection = MainActivity.getMongoCollection();
-    private final RemoteMongoClient mongoClient = MainActivity.getMongoClient();
+    /**
+     * The unsorted list of books from the parent SearchActivity.
+     */
     private ArrayList<Book> books;
+
+    /**
+     * The list of books sorted by a given field.
+     */
     private ArrayList<Book> sortedBooks;
+
+    /**
+     * The currently selected field to sort by.
+     */
     private String sortField;
 
+    /**
+     * Called by system when activity is being initialized.
+     * @param savedInstanceState (unused) the information from the previous instance of BookListActivity.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +67,9 @@ public class BookListActivity extends AppCompatActivity implements AdapterView.O
 
     }
 
+    /**
+     * Sets up/refreshes the list of books currently displayed.
+     */
     public void updateBooksUi() {
         LinearLayout booksLayout = findViewById(R.id.listLayout);
         booksLayout.removeAllViews();
@@ -71,22 +87,26 @@ public class BookListActivity extends AppCompatActivity implements AdapterView.O
                 startActivity(infoIntent);
                 finish();
             });
-
-            /*Button removeButton = chunk.findViewById(R.id.bookRemoveButton);
-            removeButton.setOnClickListener(v -> {
-                books.remove(b);
-                sortedBooks.remove(b);
-                updateBooksUi();
-            });*/
             booksLayout.addView(chunk);
         }
     }
 
+    /**
+     * What to do with the selected spinner item.
+     * @param parent the parent activity
+     * @param view the parent view
+     * @param position the on-screen position of the item
+     * @param id the id of the item selected
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         sortField = parent.getItemAtPosition(position).toString().toLowerCase();
     }
 
+    /**
+     * (Unused) What to do when no spinner item is selected.
+     * @param parent the parent activity
+     */
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         sortField = "title";
