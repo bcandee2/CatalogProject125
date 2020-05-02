@@ -18,11 +18,26 @@ import com.mongodb.stitch.core.services.mongodb.remote.sync.DefaultSyncConflictR
 
 import java.util.ArrayList;
 
+/**
+ * Home Activity
+ * Launched when app first opened, has buttons to search and add
+ */
 public class MainActivity extends AppCompatActivity {
-    private static RemoteMongoCollection mongoCollection;
-    private static RemoteMongoClient mongoClient;
-    private ArrayList<Book> books;
 
+    /**
+     * The collection that we use to store books
+     */
+    private static RemoteMongoCollection mongoCollection;
+
+    /**
+     * Used in obtaining mongoCollection
+     */
+    private static RemoteMongoClient mongoClient;
+
+    /**
+     * Called when activity is started
+     * @param savedInstanceState unused
+     */
     @SuppressLint("CheckResult")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,15 +72,26 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Called when activity is finished
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
 
+    /**
+     * Getter for mongoCollection
+     * @return Our usable collection
+     */
     public static RemoteMongoCollection getMongoCollection() {
         return mongoCollection;
     }
 
+    /**
+     * Getter for mongoClient
+     * @return Our usable client
+     */
     public static RemoteMongoClient getMongoClient() {
         return mongoClient;
     }
