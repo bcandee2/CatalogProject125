@@ -48,6 +48,7 @@
         android:layout_width="189dp"
         android:layout_height="80dp"
         android:layout_marginTop="50dp"
+        android:background="#d11a2a"
         android:text="@string/remove_book_nfrom_database"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

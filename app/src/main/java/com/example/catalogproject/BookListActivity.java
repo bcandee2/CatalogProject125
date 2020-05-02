@@ -72,12 +72,12 @@ public class BookListActivity extends AppCompatActivity implements AdapterView.O
                 finish();
             });
 
-            Button removeButton = chunk.findViewById(R.id.bookRemoveButton);
+            /*Button removeButton = chunk.findViewById(R.id.bookRemoveButton);
             removeButton.setOnClickListener(v -> {
                 books.remove(b);
                 sortedBooks.remove(b);
                 updateBooksUi();
-            });
+            });*/
             booksLayout.addView(chunk);
         }
     }

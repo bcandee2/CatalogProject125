@@ -72,6 +72,9 @@ public class BookAddActivity extends AppCompatActivity implements AdapterView.On
                         Log.d("Bookie", "We did it boys!");
                         Context context = getApplicationContext();
                         Toast.makeText(context, "Book sumbitted!", Toast.LENGTH_LONG).show();
+                        titleEditText.setText("");
+                        authorEditText.setText("");
+                        descEditText.setText("");
                     } else {
                         Log.e("Bookie", "shit");
                     }
