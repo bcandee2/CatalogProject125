@@ -19,7 +19,9 @@ import android.widget.Toast;
 import com.example.catalogproject.Logic.Book;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.mongodb.BasicDBObject;
 import com.mongodb.Block;
+import com.mongodb.DBObject;
 import com.mongodb.stitch.android.core.Stitch;
 import com.mongodb.stitch.android.core.StitchAppClient;
 import com.mongodb.stitch.android.core.services.StitchServiceClient;
@@ -54,7 +56,13 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        Spinner genreSpinner = (Spinner) findViewById(R.id.genreSpinner);
+        // Load text inputs
+        EditText titleEditText = findViewById(R.id.titleEditText3);
+        EditText authorEditText = findViewById(R.id.authorEditText3);
+        EditText descEditText = findViewById(R.id.descriptionEditText3);
+
+
+        Spinner genreSpinner = findViewById(R.id.genreSpinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.genre_array, android.R.layout.simple_spinner_item);
@@ -66,71 +74,89 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
 
         Button searchButton = findViewById(R.id.searchButton);
         searchButton.setOnClickListener(v -> {
-            EditText titleEditText = findViewById(R.id.titleEditText3);
-            EditText authorEditText = findViewById(R.id.authorEditText3);
-            EditText descEditText = findViewById(R.id.descriptionEditText3);
 
             //Get our user inputed search
             String title = titleEditText.getText().toString();
             String author = authorEditText.getText().toString();
-            String selectedGenre = genre;
             String description = descEditText.getText().toString();
 
-
-            // Start books test
-            try {
-                JSONObject book1 = new JSONObject();
-                book1.put("title", "Fahrenheit 451");
-                book1.put("author", "Ray Bradbury");
-                book1.put("genre", "horror");
-                book1.put("description", "A thrilling tale of a criminal who steals books " +
-                        "and the firemen who just want them back");
-                books.add(new Book(book1));
-                JSONObject book2 = new JSONObject();
-                book2.put("title", "Freakonomics");
-                book2.put("author", "Malcom Gladwell");
-                book2.put("genre", "fantasy");
-                book2.put("description", "A wonderful representation of what the world " +
-                        "would be like if economics really mattered");
-                books.add(new Book(book2));
-            } catch (JSONException ex) {
-                Log.d("JSONException", "books test failed");
+            // Make query document
+            BasicDBObject query = new BasicDBObject();
+            List<DBObject> search = new ArrayList<>();
+            BasicDBObject obj;
+            boolean empty = true;
+            if (title.length() > 0) {
+                obj = new BasicDBObject("$regex", title);
+                obj.append("$options", "i");
+                search.add(new BasicDBObject("title", obj));
+                empty = false;
             }
-            // End books test
+            if (author.length() > 0) {
+                obj = new BasicDBObject("$regex", author);
+                obj.append("$options", "i");
+                search.add(new BasicDBObject("author", obj));
+                empty = false;
+            }
+            if  (description.length() > 0) {
+                List<DBObject> keywords = new ArrayList<>();
+                for (String keyword: description.split("[ ]+")) {
+                    obj = new BasicDBObject("$regex", keyword);
+                    obj.append("$options", "i");
+                    keywords.add(new BasicDBObject("description", obj));
+                    empty = false;
+                }
+                search.add(new BasicDBObject("$or", keywords));
+            }
+            if (!genre.equals("None")) {
+                obj = new BasicDBObject("$regex", genre);
+                obj.append("$options", "i");
+                search.add(new BasicDBObject("genre", obj));
+                empty = false;
+            }
+
+            if (!empty) {
+                // If user inputted anything, make query document with search fields
+                query.put("$and", search);
+                Log.d("Bookie", query.toJson());
+            } else {
+                // Else find all DB documents
+                query.put("title", new BasicDBObject("$exists", true));
+                Log.e("Bookie", "uh oh");
+            }
+
+            // clear books list
+            books.clear();
 
             Log.d("Bookie", "Search activity started");
-            Document query = new Document("title", new Document("$exists", true));
             SyncFindIterable<Document> results = mongoCollection.sync().find(query);
             List<Document> searchResult = new ArrayList<>();
             Task<List<Document>> finished = results.into(searchResult);
-            finished.addOnCompleteListener(new OnCompleteListener<List<Document>>() {
-                @Override
-                public void onComplete(@NonNull Task<List<Document>> task) {
-                    for (Document item : searchResult) {
-                        String bookTitle = item.getString("title");
-                        String bookAuthor = item.getString("author");
-                        String bookGenre = item.getString("genre");
-                        String bookDesc = item.getString("description");
-                        try {
-                            JSONObject searchedBook = new JSONObject().put("title", bookTitle)
-                                    .put("author", bookAuthor)
-                                    .put("genre", bookGenre)
-                                    .put("description", bookDesc);
-                            books.add(new Book(searchedBook));
-                            Log.d("Bookie", "Book added");
-                            Log.d("Bookie", books.toString());
-                            Bundle bundle = new Bundle();
-                            bundle.putSerializable("books", books);
-                            Intent listIntent = new Intent(getApplicationContext(), BookListActivity.class);
-                            listIntent.putExtras(bundle);
-                            Toast.makeText(getApplicationContext(), "Final List: " + books.toString(), Toast.LENGTH_LONG).show();
-                            startActivity(listIntent);
-                        } catch (JSONException e) {
-                            Log.e("Bookie", "Couldn't parse document");
-                        }
+            finished.addOnCompleteListener(task -> {
+                books.clear();
+                for (Document item : searchResult) {
+                    String bookTitle = item.getString("title");
+                    String bookAuthor = item.getString("author");
+                    String bookGenre = item.getString("genre");
+                    String bookDesc = item.getString("description");
+                    try {
+                        JSONObject searchedBook = new JSONObject().put("title", bookTitle)
+                                .put("author", bookAuthor)
+                                .put("genre", bookGenre)
+                                .put("description", bookDesc);
+                        books.add(new Book(searchedBook));
+                        Log.d("Bookie", "Book added");
+                        Log.d("Bookie", books.toString());
+                    } catch (Exception e) {
+                        Log.e("Bookie", "Couldn't parse document");
                     }
-                    Log.d("Bookie", searchResult.toString());
                 }
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("books", books);
+                Intent listIntent = new Intent(getApplicationContext(), BookListActivity.class);
+                listIntent.putExtras(bundle);
+                Toast.makeText(getApplicationContext(), "Final List: " + books.toString(), Toast.LENGTH_LONG).show();
+                startActivity(listIntent);
+                Log.d("Bookie", searchResult.toString());
             });
         });
     }

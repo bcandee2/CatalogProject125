@@ -25,6 +25,7 @@
         <item>Horror</item>
         <item>Mystery</item>
         <item>Unknown</item>
+        <item>None</item>
     </string-array>
     <string-array name="sort_array">
         <item>Title</item>
@@ -32,4 +33,5 @@
         <item>Genre</item>
     </string-array>
     <string name="search_catalog">SEARCH CATALOG</string>
+    <string name="keywords">keywords</string>
 </resources>
