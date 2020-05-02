@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: org.mongodb:stitch-android-core:4.7.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/14b011cd6042ef148e3ac8f09d3df85e/jetified-stitch-android-core-4.7.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/14b011cd6042ef148e3ac8f09d3df85e/jetified-stitch-android-core-4.7.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b0eba8c0c98d71de5c5a342645f55d83/jetified-stitch-android-core-4.7.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b0eba8c0c98d71de5c5a342645f55d83/jetified-stitch-android-core-4.7.0/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/stitch-android-core/4.7.0/526b9e8acc5dfcc0f853c5f437af5f87b8dfb2fd/stitch-android-core-4.7.0-javadoc.jar!/" />
