@@ -139,7 +139,8 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
                     String bookGenre = item.getString("genre");
                     String bookDesc = item.getString("description");
                     try {
-                        JSONObject searchedBook = new JSONObject().put("title", bookTitle)
+                            JSONObject searchedBook = new JSONObject()
+                                    .put("title", bookTitle)
                                 .put("author", bookAuthor)
                                 .put("genre", bookGenre)
                                 .put("description", bookDesc);
@@ -154,7 +155,6 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
                 bundle.putSerializable("books", books);
                 Intent listIntent = new Intent(getApplicationContext(), BookListActivity.class);
                 listIntent.putExtras(bundle);
-                Toast.makeText(getApplicationContext(), "Final List: " + books.toString(), Toast.LENGTH_LONG).show();
                 startActivity(listIntent);
                 Log.d("Bookie", searchResult.toString());
             });
