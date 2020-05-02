@@ -44,7 +44,7 @@ import java.util.function.Consumer;
 public class SearchActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private RemoteMongoCollection mongoCollection = MainActivity.getMongoCollection();
     private RemoteMongoClient mongoClient = MainActivity.getMongoClient();
-    public ArrayList<Book> books;
+    public ArrayList<Book> books = new ArrayList<>();
     public ArrayList<Document> results;
     String genre;
     private JSONParser parser = new JSONParser();
@@ -77,9 +77,6 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
             String description = descEditText.getText().toString();
 
 
-            // Initialize books array
-            books = new ArrayList<>();
-
             // Start books test
             try {
                 JSONObject book1 = new JSONObject();
@@ -101,17 +98,40 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
             }
             // End books test
 
+            Log.d("Bookie", "Search activity started");
             Document query = new Document("title", new Document("$exists", true));
             SyncFindIterable<Document> results = mongoCollection.sync().find(query);
-            results.forEach(item -> {
-                Log.d("Bookie", item.toJson());
+            List<Document> searchResult = new ArrayList<>();
+            Task<List<Document>> finished = results.into(searchResult);
+            finished.addOnCompleteListener(new OnCompleteListener<List<Document>>() {
+                @Override
+                public void onComplete(@NonNull Task<List<Document>> task) {
+                    for (Document item : searchResult) {
+                        String bookTitle = item.getString("title");
+                        String bookAuthor = item.getString("author");
+                        String bookGenre = item.getString("genre");
+                        String bookDesc = item.getString("description");
+                        try {
+                            JSONObject searchedBook = new JSONObject().put("title", bookTitle)
+                                    .put("author", bookAuthor)
+                                    .put("genre", bookGenre)
+                                    .put("description", bookDesc);
+                            books.add(new Book(searchedBook));
+                            Log.d("Bookie", "Book added");
+                            Log.d("Bookie", books.toString());
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("books", books);
+                            Intent listIntent = new Intent(getApplicationContext(), BookListActivity.class);
+                            listIntent.putExtras(bundle);
+                            Toast.makeText(getApplicationContext(), "Final List: " + books.toString(), Toast.LENGTH_LONG).show();
+                            startActivity(listIntent);
+                        } catch (JSONException e) {
+                            Log.e("Bookie", "Couldn't parse document");
+                        }
+                    }
+                    Log.d("Bookie", searchResult.toString());
+                }
             });
-
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("books", books);
-            Intent listIntent = new Intent(this, BookListActivity.class);
-            listIntent.putExtras(bundle);
-            startActivity(listIntent);
         });
     }
 
