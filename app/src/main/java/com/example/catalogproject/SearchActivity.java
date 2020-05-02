@@ -78,7 +78,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
 
 
             // Start books test
-            try {
+            /*try {
                 JSONObject book1 = new JSONObject();
                 book1.put("title", "Fahrenheit 451");
                 book1.put("author", "Ray Bradbury");
@@ -95,7 +95,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
                 books.add(new Book(book2));
             } catch (JSONException ex) {
                 Log.d("JSONException", "books test failed");
-            }
+            }*/
             // End books test
 
             Log.d("Bookie", "Search activity started");
@@ -112,24 +112,22 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
                         String bookGenre = item.getString("genre");
                         String bookDesc = item.getString("description");
                         try {
-                            JSONObject searchedBook = new JSONObject().put("title", bookTitle)
+                            JSONObject searchedBook = new JSONObject()
+                                    .put("title", bookTitle)
                                     .put("author", bookAuthor)
                                     .put("genre", bookGenre)
                                     .put("description", bookDesc);
                             books.add(new Book(searchedBook));
-                            Log.d("Bookie", "Book added");
-                            Log.d("Bookie", books.toString());
                             Bundle bundle = new Bundle();
                             bundle.putSerializable("books", books);
                             Intent listIntent = new Intent(getApplicationContext(), BookListActivity.class);
                             listIntent.putExtras(bundle);
-                            Toast.makeText(getApplicationContext(), "Final List: " + books.toString(), Toast.LENGTH_LONG).show();
                             startActivity(listIntent);
                         } catch (JSONException e) {
                             Log.e("Bookie", "Couldn't parse document");
                         }
                     }
-                    Log.d("Bookie", searchResult.toString());
+                    Log.d("Bookie", books.toString());
                 }
             });
         });
