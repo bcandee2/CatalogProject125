@@ -63,7 +63,10 @@ public class BookInfoActivity extends AppCompatActivity {
         builder.setNegativeButton(R.string.cancel, null);
         builder.setPositiveButton(R.string.remove, (unused1, unused2) -> {
             // First create remove query
-            BasicDBObject query = new BasicDBObject("_id", book.getId());
+            BasicDBObject query = new BasicDBObject("title", book.getTitle());
+            query.put("author", book.getAuthor());
+            query.put("genre", book.getGenreAsString().toLowerCase());
+            query.put("description", book.getDescription());
             final Task<SyncDeleteResult> deleteTask = mongoCollection.sync().deleteOne(query);
             deleteTask.addOnCompleteListener(task -> {
                 AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
